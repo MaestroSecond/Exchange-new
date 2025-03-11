@@ -5,16 +5,7 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Настройка CORS для разрешения запросов
-app.use(cors({
-	origin: '*', // Временно разрешаем все источники
-	methods: ['GET', 'POST', 'OPTIONS'],
-	allowedHeaders: ['Content-Type', 'Accept'],
-	credentials: false // Отключаем credentials, так как используем '*'
-}));
-
-// Добавляем middleware для предварительных запросов OPTIONS
-app.options('*', cors());
+app.use(cors()); // Разрешаем запросы со всех источников
 
 // Обслуживаем статические файлы из папки "public"
 app.use(express.static(path.join(__dirname, 'public')));
