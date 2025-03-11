@@ -19,6 +19,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 		901: document.querySelector('.header_con'),
 	};
 
+	// Добавляем обработчик для всех ссылок меню
+	const menuLinks = document.querySelectorAll('.menu-link');
+	menuLinks.forEach(link => {
+		link.addEventListener('click', function(e) {
+			e.preventDefault();
+			const targetId = this.getAttribute('data-target');
+			const targetSection = document.getElementById(targetId);
+			
+			if (targetSection) {
+				// Закрываем мобильное меню при клике
+				if (burger.classList.contains('open')) {
+					burger.classList.remove('open');
+					burgerMenu.classList.remove('open');
+				}
+				
+				// Плавная прокрутка к секции
+				targetSection.scrollIntoView({
+					behavior: 'smooth',
+					block: 'start'
+				});
+			}
+		});
+	});
+
 	const toggleMenu = () => {
 		burger.classList.toggle('open');
 		burgerMenu.classList.toggle('open');

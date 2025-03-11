@@ -3490,7 +3490,9 @@ main {
     background-position: right 20px center;
     padding-right: 45px;
 }
-
+.menu-link{
+	cursor: pointer;
+}
 /* Стили при наведении */
 .calc_select-input select:hover,
 #amount:hover, #amount1:hover {
