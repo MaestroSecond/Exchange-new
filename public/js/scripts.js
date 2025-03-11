@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', async () => {
 	const amountInput = document.getElementById('amount');
 	const amountInput1 = document.getElementById('amount1');
@@ -138,12 +137,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 		convertRightToLeft();
 	});
 	async function fetchCurrencyRates() {
+		const loadingElement = document.createElement('div');
+		loadingElement.className = 'loading-indicator';
+		loadingElement.innerHTML = 'Загрузка курсов валют...';
+		document.querySelector('.exchange').appendChild(loadingElement);
+
 		try {
-			const response = await fetch('https://exchange-new-production.up.railway.app/rates');  // Используем публичный URL
-			if (!response.ok) throw new Error('Ошибка загрузки данных');
-			return await response.json();
+			const response = await fetch('https://exchange-new-production.up.railway.app/rates', {
+				credentials: 'include',
+				headers: {
+					'Accept': 'application/json'
+				}
+			});
+			
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+			
+			const data = await response.json();
+			loadingElement.remove();
+			return data;
 		} catch (error) {
 			console.error('Ошибка при получении курсов:', error);
+			loadingElement.innerHTML = 'Ошибка при загрузке курсов. Пожалуйста, попробуйте позже.';
+			loadingElement.style.color = 'red';
+			return null;
 		}
 	}
 	// Функция для обновления значений покупки и продажи
@@ -269,6 +287,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 			card.classList.toggle('active');
 		});
 	});
+
+	// Добавляем стили для индикатора загрузки
+	const style = document.createElement('style');
+	style.textContent = `
+		.loading-indicator {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			padding: 20px;
+			background: rgba(255, 255, 255, 0.9);
+			border-radius: 10px;
+			text-align: center;
+			z-index: 1000;
+		}
+	`;
+	document.head.appendChild(style);
 });
 
 

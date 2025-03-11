@@ -5,7 +5,12 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors()); // Разрешаем запросы со всех источников
+// Настройка CORS для разрешения запросов с конкретного домена
+app.use(cors({
+	origin: ['https://exchange-new-production-9516.up.railway.app', 'http://localhost:3000'],
+	methods: ['GET', 'POST'],
+	credentials: true
+}));
 
 // Обслуживаем статические файлы из папки "public"
 app.use(express.static(path.join(__dirname, 'public')));
