@@ -116,8 +116,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const fromValue = parseFloat(amountInput.value) || 0;
 		
 		if(startVal.textContent == "RUB") {
+			console.log("RUB");
 			const thbAmount = fromValue * rate;
-			const koaf = getKoaf(thbAmount);
+			const koaf = getKoaf(fromValue);
+			// console.log(fromValue,koaf,thbAmount);
 			amountInput1.value = (fromValue / (rate * koaf)).toFixed(2);
 			excVal.textContent = (rate * koaf).toFixed(2);
 		} else {
