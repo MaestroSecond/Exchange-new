@@ -25,12 +25,52 @@ document.addEventListener('DOMContentLoaded', async () => {
 	};
 
 	burger.addEventListener('click', toggleMenu);
-	const data = await fetchCurrencyRates();
-	console.log(data);
-	while(data==undefined){
-		data = await fetchCurrencyRates();
-		console.log("Не работает");
+
+	// Функция для получения курсов валют с повторными попытками
+	async function fetchCurrencyRates(retries = 3) {
+		const loadingElement = document.createElement('div');
+		loadingElement.className = 'loading-indicator';
+		loadingElement.innerHTML = 'Загрузка курсов валют...';
+		document.querySelector('.exchange').appendChild(loadingElement);
+
+		for (let i = 0; i < retries; i++) {
+			try {
+				const response = await fetch('https://exchange-new-production.up.railway.app/rates', {
+					method: 'GET',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					mode: 'cors'
+				});
+
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+
+				const data = await response.json();
+				loadingElement.remove();
+				return data;
+			} catch (error) {
+				console.error(`Попытка ${i + 1}/${retries} не удалась:`, error);
+				if (i === retries - 1) {
+					loadingElement.innerHTML = 'Ошибка при загрузке курсов. Пожалуйста, попробуйте позже.';
+					loadingElement.style.color = 'red';
+					return null;
+				}
+				// Ждем перед следующей попыткой
+				await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+			}
+		}
 	}
+
+	// Инициализация данных
+	let data = await fetchCurrencyRates();
+	if (!data) {
+		console.error('Не удалось загрузить курсы валют');
+		return; // Прерываем выполнение если данные не получены
+	}
+
 	const moveToBurger = () => {
 		const width = window.innerWidth;
 		const image = document.querySelector(".background");
@@ -136,34 +176,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 	amountInput1.addEventListener('input', () => {
 		convertRightToLeft();
 	});
-	async function fetchCurrencyRates() {
-		const loadingElement = document.createElement('div');
-		loadingElement.className = 'loading-indicator';
-		loadingElement.innerHTML = 'Загрузка курсов валют...';
-		document.querySelector('.exchange').appendChild(loadingElement);
-
-		try {
-			const response = await fetch('https://exchange-new-production.up.railway.app/rates', {
-				credentials: 'include',
-				headers: {
-					'Accept': 'application/json'
-				}
-			});
-			
-			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`);
-			}
-			
-			const data = await response.json();
-			loadingElement.remove();
-			return data;
-		} catch (error) {
-			console.error('Ошибка при получении курсов:', error);
-			loadingElement.innerHTML = 'Ошибка при загрузке курсов. Пожалуйста, попробуйте позже.';
-			loadingElement.style.color = 'red';
-			return null;
-		}
-	}
 	// Функция для обновления значений покупки и продажи
 	async function fillSpan() {
 		let i=0;
