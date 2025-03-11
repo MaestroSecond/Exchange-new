@@ -3431,4 +3431,116 @@ main {
   .instraction{
     margin-top: 0;
   }
-}/*# sourceMappingURL=styles.css.map */
+}
+
+.exchange-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.exchange-input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    margin-bottom: 15px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.exchange-input:focus {
+    border-color: #006B4F;
+    box-shadow: 0 0 0 2px rgba(0, 107, 79, 0.1);
+}
+
+.currency-select {
+    width: 100%;
+    padding: 12px 35px 12px 15px;
+    font-size: 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23333333' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    cursor: pointer;
+}
+
+.currency-select:focus {
+    border-color: #006B4F;
+    outline: none;
+}
+
+.exchange-label {
+    display: block;
+    font-size: 14px;
+    color: #333333;
+    margin-bottom: 8px;
+}
+
+.exchange-rate {
+    font-size: 18px;
+    color: #006B4F;
+    margin: 15px 0;
+    font-weight: 500;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .exchange-input,
+    .currency-select {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+    
+    .currency-select {
+        padding-right: 30px;
+    }
+}
+
+/* Стили для безопасного обмена */
+.safe-exchange {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #E8F5E9;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.safe-exchange img {
+    width: 16px;
+    height: 16px;
+}
+
+.safe-exchange span {
+    color: #2E7D32;
+    font-size: 14px;
+}
+
+/* Стили для кнопки обмена */
+.exchange-button {
+    width: 100%;
+    padding: 14px 24px;
+    background-color: #006B4F;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.exchange-button:hover {
+    background-color: #005540;
+}
+
+.exchange-button:active {
+    background-color: #004030;
+}

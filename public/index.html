@@ -81,36 +81,32 @@
 							<div class="exchange_header">
 								<h2>Лицензированная сеть обмена</h2>
 							</div>
-							<div class="exchange_calc calc">
-								<div class="calc_main-title">
-									<h2>1. Вы меняете:</h2>
-									<div class="calc_first">
-										<img src="./img/lock.png" alt="замок">
-										<span>Безопасный обмен</span>
+							<div class="exchange-form">
+								<div class="safe-exchange">
+									<img src="img/lock-icon.svg" alt="Безопасный обмен">
+									<span>Безопасный обмен</span>
+								</div>
+								
+								<div class="exchange-section">
+									<label class="exchange-label">1. Вы меняете:</label>
+									<div class="input-group">
+										<input type="number" id="amount" class="exchange-input" placeholder="Сумма">
+										<select id="toCurrency" class="currency-select">
+											<option value="first">RUB → THB</option>
+											<option value="second">USDT → THB</option>
+										</select>
 									</div>
 								</div>
-								<div class="calc_select-input">
-									<select id="toCurrency">
-										<option value="first">RUB → THB</option>
-										<option value="second">USDT → THB</option>
-									</select>
-									<input type="number" id="amount" placeholder="Сумма">
-									<span id="start-val"></span>
+
+								<div class="exchange-section">
+									<label class="exchange-label">2. Вы получаете:</label>
+									<input type="number" id="amount1" class="exchange-input" placeholder="Сумма">
+									<div class="exchange-rate">
+										Курс обмена: <span id="exc-val">0.00</span>
+									</div>
 								</div>
-								<div class="calc_sub-title">
-									<h2>2. Вы получаете:</h2>
-								</div>
-								<div class="calc_result">
-									<input type="number" id="amount1" placeholder="Сумма">
-									<span id="final-val">Бат</span>
-								</div>
-								<div class="exchange_course">
-									<h2>обменный курс: </h2> <span id="exc-val"></span>
-								</div>
-								<a href="https://t.me/EVAexchange_bot" class="exchange_teleg"><span class="teleg_text">Обменять
-										в Telegram</span>
-								</a>
-								<div class="exchange_text">При обмене 10.000 бат — лучший курс</div>
+
+								<button class="exchange-button">Обменять в Telegram</button>
 							</div>
 						</div>
 					</div>
