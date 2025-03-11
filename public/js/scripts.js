@@ -268,6 +268,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 			card.classList.toggle('active');
 		});
 	});
+
+	// Ленивая загрузка изображений
+	const lazyImages = document.querySelectorAll('.lazy-load');
+	
+	const imageObserver = new IntersectionObserver((entries, observer) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const img = entry.target;
+				img.classList.add('loaded');
+				observer.unobserve(img);
+			}
+		});
+	});
+
+	lazyImages.forEach(img => imageObserver.observe(img));
 });
 
 

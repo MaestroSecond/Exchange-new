@@ -3544,3 +3544,22 @@ main {
 .exchange-button:active {
     background-color: #004030;
 }
+
+/* Добавляем плавное масштабирование изображений */
+img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Улучшаем отображение изображений при загрузке */
+.lazy-load {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+.lazy-load.loaded {
+    opacity: 1;
+}
