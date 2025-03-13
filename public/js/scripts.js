@@ -116,29 +116,34 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const fromValue = parseFloat(amountInput.value) || 0;
 		
 		if(startVal.textContent == "RUB") {
-			console.log("RUB");
-			const thbAmount = fromValue * rate;
-			const koaf = getKoaf(fromValue);
-			// console.log(fromValue,koaf,thbAmount);
-			amountInput1.value = (fromValue / (rate * koaf)).toFixed(2);
+			// Сначала конвертируем в баты без коэффициента
+			const thbAmount = fromValue / rate;
+			// Определяем коэффициент на основе суммы в батах
+			const koaf = getKoaf(thbAmount);
+			// Применяем коэффициент к конечной сумме в батах
+			amountInput1.value = (thbAmount / koaf).toFixed(2);
 			excVal.textContent = (rate * koaf).toFixed(2);
-		} else {
+		} else if(startVal.textContent == "USDT") {
+			// Для USDT конвертация без коэффициента
 			amountInput1.value = (fromValue * rate).toFixed(2);
-			excVal.textContent = (rate).toFixed(2);
+			excVal.textContent = rate.toFixed(2);
 		}
 	}
 	
 	function convertRightToLeft() {
 		const rate = getRate();
-		const toValue = parseFloat(amountInput1.value) || 0; // это бат
+		const batAmount = parseFloat(amountInput1.value) || 0; // сумма в батах
 		
 		if(startVal.textContent == "RUB") {
-			const koaf = getKoaf(toValue);
-			amountInput.value = (toValue * rate * koaf).toFixed(2);
+			// Определяем коэффициент на основе суммы в батах
+			const koaf = getKoaf(batAmount);
+			// Конвертируем баты в рубли с учетом коэффициента
+			amountInput.value = (batAmount * rate * koaf).toFixed(2);
 			excVal.textContent = (rate * koaf).toFixed(2);
-		} else {
-			amountInput.value = (toValue / rate).toFixed(2);
-			excVal.textContent = (rate).toFixed(2);
+		} else if(startVal.textContent == "USDT") {
+			// Для USDT конвертация без коэффициента
+			amountInput.value = (batAmount / rate).toFixed(2);
+			excVal.textContent = rate.toFixed(2);
 		}
 	}
 	updateLabelsAndRate();
